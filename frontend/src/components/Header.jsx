@@ -1,0 +1,26 @@
+import React from 'react';
+import {Navbar, Nav} from "react-bootstrap";
+import {FaShoppingCart,FaUser} from "react-icons/fa";
+import logo from '../assets/logo.png'
+
+const Header = () => {
+  return (
+    <div>
+        <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
+                <Navbar.Brand href="/">
+                  <img src={logo} alt="ProShop"/>
+                  ProShop</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className='ms-auto'>
+                        <Nav.Link href="/cart"><FaShoppingCart />Cart</Nav.Link>
+                        <Nav.Link href="/login"><FaUser />Sign In</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+                
+        </Navbar>
+    </div>
+  )
+}
+
+export default Header
