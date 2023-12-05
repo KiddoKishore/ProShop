@@ -37,9 +37,8 @@ const PlaceOrderScreen = () => {
                 shippingPrice: cart.shippingPrice,
                 totalPrice: cart.totalPrice,
             }).unwrap();
-            dispatch(clearCartItems());
-            navigate(`/order/${res._id}`);
-            console.log(res);
+            // dispatch(clearCartItems());
+            navigate(`/orders/${res._id}`);
         } catch (err) {
             toast.error(err);
         }
