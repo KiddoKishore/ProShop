@@ -1,8 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
-import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap';
+import { Row, Col, ListGroup, Image, Button, Card } from 'react-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { useGetOrderDetailsQuery, usePayOrderMutation, useGetPayPalClientIdQuery } from '../slices/ordersApiSlice';
+import { useGetOrderDetailsQuery, usePayOrderMutation, useGetPayPalClientIdQuery, useDeliverOrderMutation } from '../slices/ordersApiSlice';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,13 +13,14 @@ import { clearCartItems } from '../slices/cartSlice';
 const OrderScreen = () => {
 
     const dispatch = useDispatch();
-    dispatch(clearCartItems());
 
     const { id: id } = useParams();  
 
     const { data: order, refetch, isLoading, error } = useGetOrderDetailsQuery(id);
 
     const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+
+    const [deliverOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation();
 
     const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
@@ -59,6 +60,7 @@ const OrderScreen = () => {
     async function onApproveTest() {
         await payOrder({ id, details: { payer: {}} });
         refetch();
+        dispatch(clearCartItems());
         toast.success('Payment successful');
     }
 
@@ -80,6 +82,16 @@ const OrderScreen = () => {
         .then((id) => {
             return id;
         })
+    }
+
+    const deliverOrderHandler = async () => {
+        try {
+            await deliverOrder(id);
+            refetch();
+            toast.success('Order delivered');
+        } catch (error) {
+            toast.error(error?.data?.message || error.message)
+        }
     }
 
   return (
@@ -176,7 +188,7 @@ const OrderScreen = () => {
 
                                 {isPending ? <Loader /> : (
                                     <div>
-                                        <Button onClick={onApproveTest} style={{marginBottom: '10px' }}>Test Pay Order</Button>
+                                        <Button onClick={onApproveTest} style={{marginBottom: '10px'}}>Test Pay Order</Button>
                                         <div>
                                             <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError}></PayPalButtons>
                                         </div>
@@ -184,7 +196,15 @@ const OrderScreen = () => {
                                 )} 
                             </ListGroup.Item>
                         )}
-                        {/* MARK AS DELIVERED PLACEHOLDER*/}
+                        {loadingDeliver && <loader />}
+
+                        {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                            <ListGroup.Item>
+                                <Button type='button' className='btn btn-block' onClick={deliverOrderHandler}>
+                                    Mark As Delivered
+                                </Button>
+                            </ListGroup.Item>
+                        )}
                     </ListGroup>
                 </Card>
             </Col>
