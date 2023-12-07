@@ -6,6 +6,7 @@ import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { useGetUsersQuery, useDeleteUserMutation } from "../../slices/usersApiSlice";
 import { toast } from 'react-toastify';
+import Meta from '../../components/Meta';
 
 const UserListScreen = () => {
   const { data: users,refetch, isLoading, error } = useGetUsersQuery();
@@ -26,6 +27,7 @@ const UserListScreen = () => {
 
   return (
     <>
+    <Meta title='Users Lsit' />
       <h1>USERS</h1>
       { loadingDelete && <Loader />}
       {isLoading ? (

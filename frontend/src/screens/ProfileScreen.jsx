@@ -10,6 +10,7 @@ import { useProfileMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice'; 
 import { useGetMyOrdersQuery } from '../slices/ordersApiSlice';
 import { FaTimes } from 'react-icons/fa';
+import Meta from '../components/Meta';
 
 const ProfileScreen = () => {
     const [name, setName] = useState('');
@@ -95,6 +96,7 @@ const ProfileScreen = () => {
         </Col>
         <Col md={9}>
             <h2>My Orders</h2>
+            <Meta title={`${name} Profile`}/>
             { isLoading ? (
                 <Loader />
             ) : error ? (

@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useUpdateProductMutation, useGetProductDetailsQuery, useUploadProductImageMutation } from '../../slices/productsApiSlice';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import Meta from '../../components/Meta';
 
 const ProductEditScreen = () => {
     const { id: productId } = useParams();
@@ -75,6 +76,7 @@ const ProductEditScreen = () => {
 
   return (
     <>
+    <Meta title={name}/>
     <Link to='/admin/productlist' className='btn btn-light my-3'>Go Back</Link>
     <FormContainer>
         <h1>Edit Product</h1>
@@ -113,6 +115,7 @@ const ProductEditScreen = () => {
                     label='Choose file'
                     onChange={ uploadFileHandler }></Form.Control>
                 </Form.Group>
+                {loadingUpload && <Loader />}
 
                 <Form.Group controlId='brand' className='my-2'>
                     <Form.Label>Brand</Form.Label>

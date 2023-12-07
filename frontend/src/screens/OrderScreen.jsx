@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { clearCartItems } from '../slices/cartSlice';
-
+import Meta from '../components/Meta';
 
 const OrderScreen = () => {
 
@@ -97,6 +97,7 @@ const OrderScreen = () => {
   return (
     isLoading ? <Loader /> : error ? <Message variant='danger' /> : (
         <>
+        <Meta title='Payment Screen'/>
         <h1>Order {order._id}</h1>
         <Row>
             <Col md={8}>

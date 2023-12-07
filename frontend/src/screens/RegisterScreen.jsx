@@ -8,6 +8,7 @@ import Loader from '../components/Loader';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import Meta from '../components/Meta';
 
 const RegisterScreen = () => {
     const [name, setName] = useState('');
@@ -51,7 +52,7 @@ const RegisterScreen = () => {
   return (
     <FormContainer>
         <h1>Sign Up</h1>
-
+        <Meta title='Sign Up'/>
         <Form onSubmit={submitHandler}>
         <Form.Group controlId='name' className="my-3">
                 <Form.Label>Name</Form.Label>

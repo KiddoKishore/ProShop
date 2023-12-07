@@ -8,6 +8,7 @@ import Loader from '../components/Loader';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import Meta from '../components/Meta';
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('')
@@ -44,7 +45,7 @@ const LoginScreen = () => {
   return (
     <FormContainer>
         <h1>Sign In</h1>
-
+        <Meta title='Sign In'/>
         <Form onSubmit={submitHandler}>
             <Form.Group controlId='email' className="my-3">
                 <Form.Label>Email Address</Form.Label>
