@@ -38,7 +38,6 @@ const ShippingScreen = () => {
                 <Form.Control
                 type='text'
                 placeholder='Enter address'
-                value={address}
                 onChange={(e) => setAddress(e.target.value)}></Form.Control>
             </Form.Group>
 
@@ -47,7 +46,6 @@ const ShippingScreen = () => {
                 <Form.Control
                 type='text'
                 placeholder='Enter City'
-                value={city}
                 onChange={(e) => setCity(e.target.value)}></Form.Control>
             </Form.Group>
 
@@ -56,7 +54,6 @@ const ShippingScreen = () => {
                 <Form.Control
                 type='text'
                 placeholder='Enter Postal Code'
-                value={postalCode}
                 onChange={(e) => setPostalCode(e.target.value)}></Form.Control>
             </Form.Group>
 
@@ -65,7 +62,6 @@ const ShippingScreen = () => {
                 <Form.Control
                 type='text'
                 placeholder='Enter Country'
-                value={country}
                 onChange={(e) => setCountry(e.target.value)}></Form.Control>
             </Form.Group>
 
