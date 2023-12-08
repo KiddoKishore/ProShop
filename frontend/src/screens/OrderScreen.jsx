@@ -46,7 +46,7 @@ const OrderScreen = () => {
     }, [order, paypal, paypalDispatch, loadingPayPal, errorPayPal])
 
     function onApprove(data, actions) {
-        return actions.order.capturn().then(async function (details) {
+        return actions.order.capture().then(async function (details) {
             try {
                 await payOrder({ id, details });
                 refetch();
@@ -95,7 +95,7 @@ const OrderScreen = () => {
     }
 
   return (
-    isLoading ? <Loader /> : error ? <Message variant='danger' /> : (
+    isLoading ? <Loader /> : error ? <Message variant='danger'>{error?.data?.message || error.error}</Message> : (
         <>
         <Meta title='Payment Screen'/>
         <h1>Order {order._id}</h1>
@@ -189,7 +189,7 @@ const OrderScreen = () => {
 
                                 {isPending ? <Loader /> : (
                                     <div>
-                                        <Button onClick={onApproveTest} style={{marginBottom: '10px'}}>Test Pay Order</Button>
+                                        <Button onClick={onApproveTest} style={{marginBottom: '10px'}}>Pay Order</Button>
                                         <div>
                                             <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError}></PayPalButtons>
                                         </div>
